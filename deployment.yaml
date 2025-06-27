@@ -12,35 +12,28 @@ spec:
   replicas: 3
   selector:
     matchLabels:
-      app: nginx #-> Give your app name app: java-1
+      app: random-user #-> Give your app name app: java-1
   template:
     metadata:
       labels:
-        app: nginx #-> Give your app name app: java-1
+        app: random-user #-> Give your app name app: java-1
     spec:
       containers:
-      - name: nginx-container #-> Give your container name Ex: java-1
-        image: IMAGE_PLACEHOLDER #-> Give your dockerhub image name basically with your username/app:1.0
+      - name: random-user-container #-> Give your container name Ex: java-1
+        image: sathviknr1318/random-user #-> Give your dockerhub image name basically with your username/app:1.0
         ports:
         - containerPort: 80 #-> make suer your container port properly ex: 8000 or 3000 depends on the container running.
-        env: #-> Set the environmental vairable if required
-        - name: ENVIRONMENT
-          value: "nginx-test"
-        - name: APP_NAME
-          value: "nginx-web"
-        - name: LOG_LEVEL
-          value: "info"
 --- 
 apiVersion: v1
 kind: Service
 metadata:
-  name: my-service-apache #-> Give your service name Ex: <your-name+app-name-svc
+  name: sathviknr-random-user-svc #-> Give your service name Ex: <your-name+app-name-svc
   namespace: sathvik-ns #-> Give your own namespace with your name
 spec:
   selector:
-    app: nginx #-> Give your app name app: java-1
+    app: random-user #-> Give your app name app: java-1
   ports:
     - protocol: TCP
       port: 80 #-> keep the same port for service from pod port as well for best practice.
       targetPort: 80  #-> make suer your container port properly ex: 8000 or 3000 depends on the container running.
-  type: ClusterIP #LoadBalancer -> For cloud
+  type: LoadBalancer #LoadBalancer -> For cloud
